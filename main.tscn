@@ -1,0 +1,57 @@
+[gd_scene load_steps=8 format=3 uid="uid://7wuhlltj8sqd"]
+
+[ext_resource type="Script" path="res://Components/main.gd" id="1_tp6sr"]
+[ext_resource type="ArrayMesh" uid="uid://dgi4f16tggt8u" path="res://SecretHarbour.obj" id="2_oipxb"]
+[ext_resource type="Script" path="res://Components/MeshInstance3D2.gd" id="3_wbcqw"]
+
+[sub_resource type="Environment" id="Environment_11ggv"]
+background_mode = 1
+background_color = Color(0.678431, 0.988235, 0.929412, 0)
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_1yq51"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_25lpa"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_mvg64"]
+
+[node name="MAIN" type="Node3D"]
+script = ExtResource("1_tp6sr")
+
+[node name="XROrigin3D" type="XROrigin3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.86207)
+
+[node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="Left" type="XRController3D" parent="XROrigin3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.5, -0.5)
+tracker = &"left_hand"
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="XROrigin3D/Left"]
+radius = 0.05
+
+[node name="Right" type="XRController3D" parent="XROrigin3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, -0.5)
+tracker = &"right_hand"
+
+[node name="CSGSphere3D2" type="CSGSphere3D" parent="XROrigin3D/Right"]
+radius = 0.05
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_11ggv")
+camera_attributes = SubResource("CameraAttributesPractical_1yq51")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+
+[node name="SecretHarbour" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.559916, 0, -0.828549, 0, 1, 0, 0.828549, 0, 0.559916, 0.674771, 0, -2.21646)
+mesh = ExtResource("2_oipxb")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, -3.22683)
+mesh = SubResource("PlaneMesh_25lpa")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 1.09054, 0.442865, -0.783828)
+mesh = SubResource("SphereMesh_mvg64")
+script = ExtResource("3_wbcqw")
